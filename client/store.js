@@ -27,7 +27,7 @@ const WRITE_MESSAGE = 'WRITE_MESSAGE';
 // Channels
 const GET_CHANNEL = 'GET_CHANNEL';
 const GET_CHANNELS = 'GET_CHANNELS';
-const POST_CHANNEL = 'POST_CHANNEL';
+const WRITE_CHANNEL = 'WRITE_CHANNEL';
 
 // ACTION CREATORS
 
@@ -61,8 +61,8 @@ export function getChannels(channels) {
   const action = { type: GET_CHANNELS, channels };
   return action;
 }
-export function postChannel(channels) {
-  const action = { type: POST_CHANNEL, content };
+export function writeChannel(content) {
+  const action = { type: WRITE_CHANNEL, content };
   return action;
 }
 
@@ -105,7 +105,7 @@ export function fetchChannels() {
   }
 }
 
-export function postChannel(channel) {
+export function postChannel(channel, history) {
 
   return function thunk(dispatch) {
     return axios.post('/api/channels', channel)
@@ -113,6 +113,7 @@ export function postChannel(channel) {
       .then(newChannel => {
         const action = getChannel(newChannel);
         dispatch(action);
+        history.push(`/channels/${newChannel.id}`);
         socket.emit('new-channel', newChannel);
       });
   }
@@ -184,7 +185,7 @@ function reducer(state = initialState, action) {
         channels: [...state.channels, action.channel]
       };
 
-    case POST_CHANNEL:
+    case WRITE_CHANNEL:
       return {
         ...state,
         newChannelEntry: action.content
