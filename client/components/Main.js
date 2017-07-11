@@ -4,16 +4,17 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import MessagesList from './MessagesList';
 import NewChannelEntry from './NewChannelEntry';
-import store, { fetchMessages } from '../store';
+import store, { fetchMessages, fetchChannels } from '../store';
+
 
 export default class Main extends Component {
 
-  componentDidMount () {
-    const messagesThunk = fetchMessages();
-    store.dispatch(messagesThunk);
+  componentDidMount() {
+    store.dispatch(fetchMessages());
+    store.dispatch(fetchChannels());
   }
 
-  render () {
+  render() {
     return (
       <div>
         <Sidebar />

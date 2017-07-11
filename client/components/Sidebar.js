@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ChannelList from './ChannelList';
+import ChannelListContainer from './ChannelList';
 
 export default class Sidebar extends Component {
 
-  render () {
+  render() {
     return (
       <sidebar>
         <div className="sidebar-header">
@@ -14,7 +14,7 @@ export default class Sidebar extends Component {
           </h3>
         </div>
         <h5>Channels</h5>
-        <ChannelList />
+        <ChannelListContainer />
       </sidebar>
     );
   }
